@@ -1,0 +1,7 @@
+This is the Java Docs for ProductService. To compile manually (without shell script file), please run: javac ProductService.java
+After compiling, you can start the product service server: java ProductService
+Now the server has started. You can make Requests manually by using CURL. Below are sample usage, please change and replace IP and port according to config.json: 
+To CREATE a Product: curl -X POST http://localhost:15000/product -H "Content-Type: application/json" -d '{"command": "create", "id": 23823, "name": "productname-32843hnksjn4398", "description": "Product Description", "price": 3.99, "quantity": 9}' -w "\nResponse Code: %{http_code}\n"
+To GET a Product: curl http://localhost:15000/product/23823 -w "\nResponse Code: %{http_code}\n"
+To UPDATE a Product: curl -X POST http://localhost:15000/product -H "Content-Type: application/json" -d '{"command": "update", "id": 23823, "name": "newproductname", "description": "Updated Product Description", "price": 4.99, "quantity": 10}' -w "\nResponse Code: %{http_code}\n"
+To DELETE a Product: curl -X POST http://localhost:15000/product -H "Content-Type: application/json" -d '{"command": "delete", "id": 23823, "name": "newproductname", "description": "Updated Product Description", "price": 4.99, "quantity": 10}' -w "\nResponse Code: %{http_code}\n"

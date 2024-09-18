@@ -1,0 +1,10 @@
+USER create 1016  john test1010@test.com password1010
+USER create 1017  john test1010@test.com password1010
+USER create 10187  john test1010@test.com password1010
+USER get 1017
+PRODUCT create 4 productname-2398 test 3.99 9
+PRODUCT create 5 productname-2398 test 3.99 9
+PRODUCT create 6 productname-2398 test 3.99 9
+ORDER place 1016 4 3  
+ORDER place 1017 5 3  
+ORDER place 1017 5 3  

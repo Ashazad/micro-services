@@ -1,0 +1,5 @@
+This is the Java Docs for OrderService. To compile manually (without shell script file), please run: javac OrderService.java
+After compiling, you can start the user service server: java OrderService
+Now the server has started. You can make Requests manually by using CURL. Below are sample usage, please change and replace IP and port according to config.json: 
+A order will be created if successful. Make sure User is legit, quantity does not exceed maximum current stock and provide correct id.
+To CREATE a Order: curl -X POST http://localhost:14000/order -H "Content-Type: application/json" -d '{"command": "place order", "product_id": 3, "user_id": 3, "quantity": 100}' -w "\nResponse Code: %{http_code}\n"

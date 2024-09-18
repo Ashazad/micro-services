@@ -1,0 +1,7 @@
+This is the Java Docs for UserService. To compile manually (without shell script file), please run: javac UserService.java
+After compiling, you can start the user service server: java UserService
+Now the server has started. You can make Requests manually by using CURL. Below are sample usage, please change and replace IP and port according to config.json: 
+To CREATE a User: curl -X POST http://localhost:14001/user -H "Content-Type: application/json" -d '{"command": "create", "id": 23823, "username": "username-32843hnksjn4398", "email": "foo@bar.com", "password": "34289nkjni3w4u"}' -w "\nResponse Code: %{http_code}\n"
+To GET a User: curl http://localhost:14001/user/23823 -w "\nResponse Code: %{http_code}\n"
+To UPDATE a User: curl -X POST http://localhost:14001/user -H "Content-Type: application/json" -d '{"command": "update", "id": 23823, "username": "newusername", "email": "newemail@domain.com", "password": "newpassword"}' -w "\nResponse Code: %{http_code}\n"
+To DELETE a User: curl -X POST http://localhost:14001/user -H "Content-Type: application/json" -d '{"command": "delete", "id": 23823, "username": "newusername", "email": "newemail@domain.com", "password": "newpassword"}' -w "\nResponse Code: %{http_code}\n"

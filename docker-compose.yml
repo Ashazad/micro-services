@@ -1,0 +1,142 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: database_c
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: yourpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  userservice:
+    build:
+      context: .
+      dockerfile: src/UserService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+    depends_on:
+      - postgres
+
+  userservice1:
+    build:
+      context: .
+      dockerfile: src/UserService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+      USER_SERVICE_PORT: 16001
+    depends_on:
+      - postgres
+
+  userservice2:
+    build:
+      context: .
+      dockerfile: src/UserService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+      USER_SERVICE_PORT: 16002
+    depends_on:
+      - postgres
+
+  userservice3:
+    build:
+      context: .
+      dockerfile: src/UserService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+      USER_SERVICE_PORT: 16003
+    depends_on:
+      - postgres
+
+  productservice:
+    build:
+      context: .
+      dockerfile: src/ProductService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+    depends_on:
+      - postgres
+
+  productservice1:
+    build:
+      context: .
+      dockerfile: src/ProductService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+      PRODUCT_SERVICE_PORT: 17001
+    depends_on:
+      - postgres
+
+  productservice2:
+    build:
+      context: .
+      dockerfile: src/ProductService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+      PRODUCT_SERVICE_PORT: 17002
+    depends_on:
+      - postgres
+  
+  productservice3:
+    build:
+      context: .
+      dockerfile: src/ProductService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: "username"
+      DB_PASS: "yourpassword"
+      PRODUCT_SERVICE_PORT: 17003
+    depends_on:
+      - postgres
+
+  orderservice_main:
+    build:
+      context: .
+      dockerfile: src/OrderService/Dockerfile
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/postgres"
+      DB_USER: username
+      DB_PASS: yourpassword
+      LOAD_BALANCER_URL: "http://nginx:80"
+    ports:
+      - "14002:14002"
+    depends_on:
+      - postgres
+
+
+  nginx:
+    build:
+      context: .
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - userservice1
+      - userservice2
+      - userservice 
+      - orderservice_main
+
+
+
+
+
+
+volumes:
+  postgres_data:
